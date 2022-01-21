@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import React, {useState} from 'react';
+import { Modal } from 'antd';
+
+import {ListUser} from './Components/ListUser'
+import {AddUserForm} from './Components/AddUserForm'
+
+import 'antd/dist/antd.css'
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+
+    const handleOpenModal = () => {
+        setIsModalVisible(true)
+    }
+
+    const handleCancel = () => {
+        setIsModalVisible(false)
+    }
+
+    return (
+        <div className="App">
+            <h2>List user</h2>
+            <div className="header-add-user">
+                <button className="ant-btn ant-btn-primary" onClick={handleOpenModal}>
+                    Add New User
+                </button>
+            </div>
+            <ListUser />
+            <Modal title="Basic Modal" visible={isModalVisible} footer={null} onCancel={handleCancel}>
+                <AddUserForm />
+            </Modal>
+        </div>
+    );
 }
 
 export default App;
