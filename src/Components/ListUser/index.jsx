@@ -6,12 +6,14 @@ export const ListUser = () => {
 
     const [user, setUser] = useState([])
 
+    //Get
     const callGetUser = async () => {
         const response = await getUser();
         console.log("data",response.data)
         setUser(response.data)
     }
 
+    //Delete
     const onDelete = async (item) => {
         const response = await deleteUser(item.id)
         console.log(response)
