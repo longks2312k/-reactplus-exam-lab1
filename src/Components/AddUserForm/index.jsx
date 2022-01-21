@@ -1,16 +1,22 @@
 import React,{useState,useEffect} from "react";
 import { Button, Input } from 'antd';
-import {postUser} from '../../Api/Api'
+import {postUser, putUser} from '../../Api/Api'
 import './Adduser.css'
 
 export const AddUserForm = () => {
 const [avatar,setAvatar] = useState('')
     const [name,setName] = useState('')
     const [content,setContent] = useState('')
+    
+    //Add
     const onAdd =  () => {
         const response = postUser({avatar: avatar, name:name, description:content})
     }
-    
+
+    //Edit
+    const onChange =  () => {
+        const response = putUser({avatar: avatar, name:name, description:content, id:57})
+    }
 
     return <div>
         <div>
@@ -25,7 +31,10 @@ const [avatar,setAvatar] = useState('')
             </div>
             <div className="div-button">
                 <Button onClick={onAdd} className="ant-btn ant-btn-primary">
-                    Save
+                    Add New User
+                </Button>
+                <Button onClick={onChange} className="ant-btn ant-btn-primary" style={{marginLeft: 10}}>
+                    Edit User
                 </Button>
                 <Button className="ant-btn" style={{marginLeft: 10}}>
                     Cancel
