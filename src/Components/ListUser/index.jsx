@@ -1,10 +1,24 @@
+import { Modal, Input, Button } from 'antd';
 import './ListUser.css'
 import React,{useState,useEffect} from "react";
-import {getUser,deleteUser} from '../../Api/Api'
+import {getUser,deleteUser,putUser} from '../../Api/Api'
 
 export const ListUser = () => {
 
     const [user, setUser] = useState([])
+    const [avatar,setAvatar] = useState('')
+    const [name,setName] = useState('')
+    const [content,setContent] = useState('')
+
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const handleOpenModal = () => {
+        setIsModalVisible(true)
+    }
+
+    const handleCancel = () => {
+        setIsModalVisible(false)
+    }
 
     //Get
     const callGetUser = async () => {
@@ -16,6 +30,11 @@ export const ListUser = () => {
     //Delete
     const onDelete = async (item) => {
         const response = await deleteUser(item.id)
+    }
+
+    //Edit
+    const onChange = async (id) => {
+        const response = await putUser(id,{avatar: avatar, name: name, description:content})
         console.log(response)
     }
 
@@ -41,15 +60,37 @@ export const ListUser = () => {
                     </div>
                 </div>
                 <ul className="ant-list-item-action">
-                    <li className="ant-list-item-btn">
+                    <li onClick={() => handleOpenModal(item)} className="ant-list-item-btn">
                         <a>Edit</a>
                     </li>
                     <li onClick={() => onDelete(item)} className="ant-list-item-btn">
                         <a>Remove</a>
                     </li>
                 </ul>
+                <Modal title="Basic Modal" visible={isModalVisible} footer={null} onCancel={handleCancel}>
+                <div>
+                    <div className="input-text">
+                        <Input onChange={(e)=> setAvatar(e.target.value)} placeholder="Avatar" type="text" className="ant-input" />
+                    </div>
+                    <div className="input-text">
+                        <Input onChange={(e)=> setName(e.target.value)} placeholder="Name" type="text" className="ant-input" />
+                    </div>
+                    <div className="input-text">
+                        <Input onChange={(e)=> setContent(e.target.value)} placeholder="Content" type="text" className="ant-input" />
+                    </div>
+                    <div className="div-button">
+                        <Button onClick={() => onChange(item.id)} className="ant-btn ant-btn-primary">
+                            Edit User
+                        </Button>
+                        <Button className="ant-btn" style={{marginLeft: 10}}>
+                            Cancel
+                        </Button>
+                    </div>
+                </div>
+                </Modal>
             </div>
         ))}
         </div>
+        
     </div>
 }
