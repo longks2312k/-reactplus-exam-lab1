@@ -10,5 +10,5 @@ const instance = axios.create({
   }
 });
 export const getUser = () => instance.get(baseURL)
-export const postUser = (params) => instance.post(params)
+export const postUser = (params) => instance.post(baseURL,params)
 export const deleteUser = (params) => instance.delete(params)

@@ -3,6 +3,10 @@
 }
 .ant-list-item-meta{
     height: 100px;
+    padding: 0 20px 0 20px;
+}
+.ant-list-item-meta-content{
+    margin-left: 10px;
 }
 .ant-list-item-btn{
     margin-top: 10px;
