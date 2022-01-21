@@ -9,11 +9,13 @@ export const ListUser = () => {
     const [avatar,setAvatar] = useState('')
     const [name,setName] = useState('')
     const [content,setContent] = useState('')
+    const [id,setId] = useState('')
 
     const [isModalVisible, setIsModalVisible] = useState(false);
 
-    const handleOpenModal = () => {
+    const handleOpenModal = (item) => {
         setIsModalVisible(true)
+        setId(item.id)
     }
 
     const handleCancel = () => {
@@ -33,9 +35,9 @@ export const ListUser = () => {
     }
 
     //Edit
-    const onChange = async (id) => {
+    const onChange = async () => {
         const response = await putUser(id,{avatar: avatar, name: name, description:content})
-        console.log(response)
+        //console.log('id',id)
     }
 
     useEffect(() => {
@@ -79,7 +81,7 @@ export const ListUser = () => {
                         <Input onChange={(e)=> setContent(e.target.value)} placeholder="Content" type="text" className="ant-input" />
                     </div>
                     <div className="div-button">
-                        <Button onClick={() => onChange(item.id)} className="ant-btn ant-btn-primary">
+                        <Button onClick={() => onChange()} className="ant-btn ant-btn-primary">
                             Edit User
                         </Button>
                         <Button className="ant-btn" style={{marginLeft: 10}}>
